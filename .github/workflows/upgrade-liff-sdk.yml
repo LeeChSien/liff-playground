@@ -1,0 +1,28 @@
+jobs:
+  upgradeLiffSdk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Make changes to pull request
+        run: date +%s > report.txt
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.PAT }}
+          commit-message: 'chore: upgrade LIFF SDK'
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          signoff: false
+          branch: upgrade-liff-sdk
+          delete-branch: true
+          title: 'chore: upgrade LIFF SDK'
+          body: |
+            Upgrade LIFF SDK from  GitHub Action.
+          labels: |
+            report
+            automated pr
+          milestone: 1
+          draft: false
